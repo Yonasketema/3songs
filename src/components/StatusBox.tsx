@@ -1,24 +1,62 @@
+import { BiAlbum } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
+import { MdAlbum, MdMusicNote } from "react-icons/md";
 import styled from "styled-components";
 
 const Box = styled.div`
   display: flex;
-
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   border: 1px solid #c7d2fe;
   padding: 1rem 3.5rem;
-  width: 21rem;
+  text-align: center;
+  color: var(--color-grey-500);
   border-radius: var(--border-radius-sm);
+
+  h3 {
+    color: var(--color-brand-900);
+  }
 `;
 
-function StatusBox() {
+const IconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 100%;
+  background-color: var(--color-brand-100);
+`;
+
+function StatusBox({ data }) {
   return (
     <Box>
       <div>
-        <h6>Total Songs</h6>
-        <h3>120</h3>
+        <h6>Total {data.label}</h6>
+        <h3>{data.number}</h3>
       </div>
-      <div>icon</div>
+      <div>
+        {data.label === "artist" && (
+          <IconBox>
+            <CgProfile size={24} color={"var(--color-brand-500)"} />
+          </IconBox>
+        )}
+        {data.label === "songs" && (
+          <IconBox>
+            <MdMusicNote size={24} color={"var(--color-brand-500)"} />
+          </IconBox>
+        )}
+        {data.label === "album" && (
+          <IconBox>
+            <MdAlbum size={24} color={"var(--color-brand-500)"} />
+          </IconBox>
+        )}
+        {data.label === "genre" && (
+          <IconBox>
+            <BiAlbum size={24} color={"var(--color-brand-500)"} />
+          </IconBox>
+        )}
+      </div>
     </Box>
   );
 }

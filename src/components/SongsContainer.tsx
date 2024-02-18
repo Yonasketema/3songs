@@ -8,7 +8,9 @@ function SongsContainer() {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
-    <section style={{ display: "flex", flexDirection: "column" }}>
+    <section
+      style={{ display: "flex", flexDirection: "column", height: "100%" }}
+    >
       <header style={{ display: "flex", justifyContent: "space-between" }}>
         <h1>All songs</h1>
         <Row>
@@ -19,7 +21,7 @@ function SongsContainer() {
           <button onClick={() => setIsOpenModal(true)}>ADD</button>
           {isOpenModal && (
             <Modal onClose={() => setIsOpenModal(false)}>
-              <CreateSongForm />
+              <CreateSongForm onClose={() => setIsOpenModal(false)} />
             </Modal>
           )}
         </Row>

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import SongRow from "./SongRow";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchSongs } from "../state/song/songSlice";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -7,11 +12,12 @@ const Table = styled.div`
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
-  height: 100vh;
+  /* height: 27rem;
+  overflow: hidden; */
 `;
 const TableList = styled.div`
-  overflow-y: auto;
-  height: 100%;
+  /* overflow-y: auto;
+  height: 21.7rem; */
 `;
 
 const TableHeader = styled.header`
@@ -30,6 +36,14 @@ const TableHeader = styled.header`
 `;
 
 function SongTable() {
+  const { songs, isLoading } = useSelector((state: RootState) => state.song);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchSongs());
+  }, [dispatch]);
+
+  console.log({ songs, isLoading });
   return (
     <Table role="table">
       <TableHeader role="row">
@@ -39,29 +53,9 @@ function SongTable() {
         <div>Genre</div>
       </TableHeader>
       <TableList>
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
-        <SongRow />
+        {songs.map((song) => (
+          <SongRow song={song} key={song.id} />
+        ))}
       </TableList>
     </Table>
   );

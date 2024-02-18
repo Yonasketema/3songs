@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import AlbumRow from "./AlbumRow";
+import ArtistRow from "./ArtistRow";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -30,51 +30,19 @@ const TableHeader = styled.header`
   padding: 1.6rem 2.4rem;
 `;
 
-function AlbumTable() {
+function ArtistTable() {
   return (
     <Table role="table">
       <TableHeader role="row">
-        <div>Album</div>
         <div>Artist</div>
-        <div>Tracks</div>
+        <div>Total Songs</div>
+        <div>Album</div>
       </TableHeader>
       <TableList>
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
+        <ArtistRow />
       </TableList>
     </Table>
   );
 }
 
-export default AlbumTable;
+export default ArtistTable;

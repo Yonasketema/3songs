@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
+import Modal from "./Modal";
+import CreateSongForm from "./CreateSongForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -30,17 +33,28 @@ const Genre = styled.div`
   color: var(--color-green-700);
 `;
 
-function SongRow() {
+function SongRow({ song }) {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   return (
     <TableRow>
-      <Title>Hello</Title>
-      <Artist>Teddyafro</Artist>
-      <Genre>Hip-pop</Genre>
-      <Genre>Hip-pop</Genre>
+      <Title>{song.title}</Title>
+      <Artist>{song.artist}</Artist>
+      <Genre>{song.album}</Genre>
+      <Genre>{song.genre}</Genre>
       <div>
-        <button>Edit</button>
+        <button onClick={() => setIsOpenModal(true)}>Edit</button>
         <button>Delete</button>
       </div>
+
+      {isOpenModal && (
+        <Modal onClose={() => setIsOpenModal(false)}>
+          <CreateSongForm
+            onClose={() => setIsOpenModal(false)}
+            songData={song}
+          />
+        </Modal>
+      )}
     </TableRow>
   );
 }

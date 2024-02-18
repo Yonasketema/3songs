@@ -2,10 +2,13 @@ import styled from "styled-components";
 import ArrowButton from "./ArrowButton";
 import Row from "./Row";
 import AlbumTable from "./AlbumTable";
+import { useState } from "react";
+import ArtistTable from "./ArtistTable";
 
 const StyledSideBar = styled.aside`
   grid-row: 1 / -1;
   grid-column: 2/3;
+  padding: 1rem 1.7rem;
 `;
 
 const SideBarHeader = styled.div`
@@ -16,16 +19,27 @@ const SideBarHeader = styled.div`
 `;
 
 function SideBar() {
+  const [next, setNext] = useState(false);
   return (
     <StyledSideBar>
       <SideBarHeader>
-        <h3>Album Statics</h3>
+        {next ? <h1>Album</h1> : <h1>Artist</h1>}
         <Row>
-          <ArrowButton>&lt;</ArrowButton>
-          <ArrowButton>&gt;</ArrowButton>
+          <ArrowButton
+            onClick={() => setNext((state) => !state)}
+            disabled={!next}
+          >
+            &lt;
+          </ArrowButton>
+          <ArrowButton
+            onClick={() => setNext((state) => !state)}
+            disabled={next}
+          >
+            &gt;
+          </ArrowButton>
         </Row>
       </SideBarHeader>
-      <AlbumTable />
+      {next ? <AlbumTable /> : <ArtistTable />}
     </StyledSideBar>
   );
 }
