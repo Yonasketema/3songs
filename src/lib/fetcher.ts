@@ -16,7 +16,7 @@ const fetcher = async ({ url, method, body, json = true }: Fetcher) => {
   });
 
   if (!response.ok) {
-    throw new Error(response.data.message);
+    throw new Error("api error");
   }
 
   if (json) {

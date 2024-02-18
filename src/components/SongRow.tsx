@@ -5,6 +5,9 @@ import CreateSongForm from "./CreateSongForm";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import IconBox from "./IconBox";
 import { Primary, Secondary, TableRow } from "./Table";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../state/store";
+import { deleteSong } from "../state/song/songSlice";
 
 const ButtonContainer = styled.div`
   margin-left: 41%;
@@ -14,6 +17,8 @@ const ButtonContainer = styled.div`
 
 function SongRow({ song }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   return (
     <TableRow>
@@ -26,7 +31,10 @@ function SongRow({ song }) {
           <HiPencil />
         </IconBox>
         <IconBox>
-          <HiTrash color="var(--color-red-700)" />
+          <HiTrash
+            color="var(--color-red-700)"
+            onClick={() => dispatch(deleteSong(song))}
+          />
         </IconBox>
       </ButtonContainer>
 

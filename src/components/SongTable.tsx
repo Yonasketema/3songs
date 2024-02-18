@@ -14,7 +14,6 @@ function SongTable() {
     dispatch(fetchSongs());
   }, [dispatch]);
 
-  console.log({ songs, isLoading });
   return (
     <Table role="table">
       <TableHeader role="row">

@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import AlbumRow from "./AlbumRow";
 import { Table as baseTable, TableHeader as baseHeader } from "./Table";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchAlbumStats } from "../state/song/songStatsSlice";
 
 const Table = styled(baseTable)`
   grid-template-columns: 1fr 1fr 1fr;
@@ -15,6 +20,15 @@ const TableList = styled.div`
 `;
 
 function AlbumTable() {
+  const albumStats = useSelector(
+    (state: RootState) => state.SongStats.albumStats
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchAlbumStats());
+  }, [dispatch]);
+
   return (
     <Table role="table">
       <TableHeader role="row">
@@ -23,39 +37,9 @@ function AlbumTable() {
         <div>Tracks</div>
       </TableHeader>
       <TableList>
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
-        <AlbumRow />
+        {albumStats?.map((song) => (
+          <AlbumRow song={song} key={song.album} />
+        ))}
       </TableList>
     </Table>
   );

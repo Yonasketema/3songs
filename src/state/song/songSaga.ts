@@ -1,16 +1,24 @@
 import { put, takeEvery, call } from "redux-saga/effects";
-import {
-  createSongsSuccess,
-  fetchSongsSuccess,
-  fetchSongs as fetchSongsAction,
-} from "./songSlice";
+import { createSongsSuccess, fetchSongsSuccess, fetchSongs } from "./songSlice";
 import {
   createSongsApi,
+  deleteSongsApi,
   fetchSongsApi,
   updateSongsApi,
 } from "../../apis/songApi";
+import {
+  fetchAlbumStatsApi,
+  fetchArtistStatsApi,
+  fetchGenreStatsApi,
+} from "../../apis/songStatsApi";
 
-function* fetchSongs() {
+import {
+  fetchAlbumStatsSuccess,
+  fetchArtistStatsSuccess,
+  fetchGenreStatsSuccess,
+} from "./songStatsSlice";
+
+function* fetchSongsHandler() {
   try {
     const songsData = yield call(() => fetchSongsApi());
 
@@ -20,7 +28,36 @@ function* fetchSongs() {
   }
 }
 
-function* createSongs(action) {
+function* fetchGenreStatsHandler() {
+  try {
+    const songsData = yield call(() => fetchGenreStatsApi());
+
+    yield put(fetchGenreStatsSuccess(songsData));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* fetchAlbumStatsHandler() {
+  try {
+    const songsData = yield call(() => fetchAlbumStatsApi());
+
+    yield put(fetchAlbumStatsSuccess(songsData));
+  } catch (e) {
+    console.log(e);
+  }
+}
+function* fetchArtistStatsHandler() {
+  try {
+    const songsData = yield call(() => fetchArtistStatsApi());
+
+    yield put(fetchArtistStatsSuccess(songsData));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* createSongsHandler(action) {
   try {
     const songsData = yield call(() => createSongsApi(action.payload));
 
@@ -29,20 +66,36 @@ function* createSongs(action) {
     console.log(e);
   }
 }
-function* updateSongs(action) {
+
+function* updateSongsHandler(action) {
   try {
     const response = yield call(() => updateSongsApi(action.payload));
 
-    yield put(fetchSongsAction());
+    yield put(fetchSongs());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* deleteSongsHandler(action) {
+  try {
+    yield call(() => deleteSongsApi(action.payload));
+
+    yield put(fetchSongs());
   } catch (e) {
     console.log(e);
   }
 }
 
 function* songSaga() {
-  yield takeEvery("song/fetchSongs", fetchSongs);
-  yield takeEvery("song/createSongs", createSongs);
-  yield takeEvery("song/updateSongs", updateSongs);
+  yield takeEvery("song/fetchSongs", fetchSongsHandler);
+  yield takeEvery("song/createSongs", createSongsHandler);
+  yield takeEvery("song/updateSongs", updateSongsHandler);
+  yield takeEvery("song/deleteSong", deleteSongsHandler);
+
+  yield takeEvery("songStats/fetchGenreStats", fetchGenreStatsHandler);
+  yield takeEvery("songStats/fetchAlbumStats", fetchAlbumStatsHandler);
+  yield takeEvery("songStats/fetchArtistStats", fetchArtistStatsHandler);
 }
 
 export default songSaga;

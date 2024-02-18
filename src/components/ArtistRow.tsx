@@ -6,12 +6,12 @@ const TableRow = styled(baseRow)`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-function ArtistRow() {
+function ArtistRow({ song }) {
   return (
     <TableRow>
-      <Primary>Teddyafro</Primary>
-      <Secondary>14</Secondary>
-      <Secondary>12</Secondary>
+      <Primary>{song.artist} </Primary>
+      <Secondary>{song.album}</Secondary>
+      <Secondary>{song.songs}</Secondary>
     </TableRow>
   );
 }
