@@ -75,7 +75,6 @@ function CreateSongForm({ onClose, songData = {} }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <>{isEditForm && "true"}</>
       <FormRow>
         <Label htmlFor="title">Song title</Label>
         <Input

@@ -3,15 +3,12 @@ import SideBar from "./components/SideBar";
 import SongStats from "./components/SongStats";
 import SongsContainer from "./components/SongsContainer";
 import Header from "./components/Header";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "./state/store";
 
 const StyledMain = styled.main`
   height: 88vh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 0.7fr;
+  grid-template-columns: 1fr 0.5fr;
   grid-template-rows: 1fr 1fr;
   padding-right: 0;
   padding: 0 1rem;
