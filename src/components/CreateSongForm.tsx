@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
 import { createSongs, updateSongs } from "../state/song/songSlice";
+import Button from "./Button";
 
 const FormRow = styled.div`
   display: grid;
@@ -124,10 +125,17 @@ function CreateSongForm({ onClose, songData = {} }) {
       </FormRow>
 
       <FormRow>
-        <button type="reset" onClick={onClose}>
+        <Button
+          variation="secondary"
+          size="medium"
+          type="reset"
+          onClick={onClose}
+        >
           Cancel
-        </button>
-        <button>{!isEditForm ? "Add Song" : "Edit Song"}</button>
+        </Button>
+        <Button variation="primary" size="medium">
+          {!isEditForm ? "Add Song" : "Edit Song"}
+        </Button>
       </FormRow>
     </Form>
   );
