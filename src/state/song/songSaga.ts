@@ -2,15 +2,17 @@ import { put, takeEvery, call } from "redux-saga/effects";
 import {
   createSongsSuccess,
   fetchSongsSuccess,
-  updateSongsSuccess,
   fetchSongs as fetchSongsAction,
 } from "./songSlice";
+import {
+  createSongsApi,
+  fetchSongsApi,
+  updateSongsApi,
+} from "../../apis/songApi";
 
 function* fetchSongs() {
   try {
-    const response = yield fetch("http://localhost:8000/api/v1/songs");
-
-    const songsData = yield response.json();
+    const songsData = yield call(() => fetchSongsApi());
 
     yield put(fetchSongsSuccess(songsData));
   } catch (e) {
@@ -20,18 +22,7 @@ function* fetchSongs() {
 
 function* createSongs(action) {
   try {
-    const response = yield call(() =>
-      fetch("http://localhost:8000/api/v1/songs", {
-        body: JSON.stringify(action.payload),
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-    );
-
-    const songsData = yield response.json();
+    const songsData = yield call(() => createSongsApi(action.payload));
 
     yield put(createSongsSuccess(songsData));
   } catch (e) {
@@ -40,18 +31,7 @@ function* createSongs(action) {
 }
 function* updateSongs(action) {
   try {
-    const response = yield call(() =>
-      fetch(`http://localhost:8000/api/v1/songs/${action.payload.id}`, {
-        body: JSON.stringify(action.payload),
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-    );
-
-    const songsData = yield response.json();
+    const response = yield call(() => updateSongsApi(action.payload));
 
     yield put(fetchSongsAction());
   } catch (e) {
