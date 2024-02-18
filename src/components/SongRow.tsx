@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Modal from "./Modal";
 import CreateSongForm from "./CreateSongForm";
+import { HiPencil, HiTrash } from "react-icons/hi";
+import IconBox from "./IconBox";
 
 const TableRow = styled.div`
   display: grid;
@@ -32,6 +34,11 @@ const Genre = styled.div`
   font-weight: 500;
   color: var(--color-green-700);
 `;
+const ButtonContainer = styled.div`
+  margin-left: 41%;
+  display: flex;
+  gap: 1rem;
+`;
 
 function SongRow({ song }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -42,10 +49,14 @@ function SongRow({ song }) {
       <Artist>{song.artist}</Artist>
       <Genre>{song.album}</Genre>
       <Genre>{song.genre}</Genre>
-      <div>
-        <button onClick={() => setIsOpenModal(true)}>Edit</button>
-        <button>Delete</button>
-      </div>
+      <ButtonContainer>
+        <IconBox onClick={() => setIsOpenModal(true)}>
+          <HiPencil />
+        </IconBox>
+        <IconBox>
+          <HiTrash color="var(--color-red-700)" />
+        </IconBox>
+      </ButtonContainer>
 
       {isOpenModal && (
         <Modal onClose={() => setIsOpenModal(false)}>

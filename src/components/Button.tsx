@@ -56,6 +56,8 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
 
+  opacity: 0.9;
+
   gap: 1rem;
 
   & svg {

@@ -7,11 +7,11 @@ import { useEffect } from "react";
 import { fetchSongs } from "../state/song/songSlice";
 
 const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
-
+  border: 1px solid var(--color-grey-100);
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
-  border-radius: 7px;
+  box-shadow: var(--shadow-sm);
+
   /* height: 27rem;
   overflow: hidden; */
 `;

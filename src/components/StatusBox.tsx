@@ -8,7 +8,7 @@ const Box = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #c7d2fe;
+  border: 1px solid var(--color-grey-100);
   padding: 1rem 3.5rem;
   text-align: center;
   color: var(--color-grey-500);
@@ -25,7 +25,8 @@ const IconBox = styled.div`
   align-items: center;
   padding: 1rem;
   border-radius: 100%;
-  background-color: var(--color-brand-100);
+  background-color: var(--color-brand-200);
+  opacity: 0.9;
 `;
 
 function StatusBox({ data }) {

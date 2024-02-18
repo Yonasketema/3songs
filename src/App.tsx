@@ -3,6 +3,9 @@ import SideBar from "./components/SideBar";
 import SongStats from "./components/SongStats";
 import SongsContainer from "./components/SongsContainer";
 import Header from "./components/Header";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "./state/store";
 
 const StyledMain = styled.main`
   height: 88vh;

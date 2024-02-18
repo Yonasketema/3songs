@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Row from "./Row";
+import DarkModeButton from "./DarkModeButton";
 
 const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-grey-100);
   height: 9vh;
 `;
 
@@ -18,7 +19,7 @@ function Header() {
         <small>API</small>
       </Row>
 
-      <button>Moon</button>
+      <DarkModeButton />
     </StyledHeader>
   );
 }

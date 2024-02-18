@@ -7,9 +7,7 @@ import { PiPlus } from "react-icons/pi";
 import Button from "./Button";
 import Select from "./Select";
 import Input from "./Input";
-import { BiSearch } from "react-icons/bi";
 import styled from "styled-components";
-import { BsSearch } from "react-icons/bs";
 import { CgSearch } from "react-icons/cg";
 
 const options = [
