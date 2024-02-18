@@ -10,9 +10,13 @@ const StyledMain = styled.main`
   display: grid;
   grid-template-columns: 1fr 0.7fr;
   grid-template-rows: 1fr 1fr;
-  gap: 2.4rem;
   padding-right: 0;
   padding: 0 1rem;
+`;
+const INBOX = styled.div`
+  overflow-y: scroll;
+  height: 88vh;
+  padding: 1.7rem 1rem;
 `;
 
 function App() {
@@ -20,8 +24,10 @@ function App() {
     <>
       <Header />
       <StyledMain>
-        <SongStats />
-        <SongsContainer />
+        <INBOX>
+          <SongStats />
+          <SongsContainer />
+        </INBOX>
         <SideBar />
       </StyledMain>
     </>
