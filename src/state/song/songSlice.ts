@@ -10,13 +10,19 @@ export interface Song {
 
 interface initialState {
   songs: Song[];
-  isLoading: boolean;
+  isLoadingFetchSong: boolean;
+  isLoadingDeleteSong: boolean;
+  isLoadingCreateSong: boolean;
+  isLoadingUpdateSong: boolean;
 }
 
 // const initialState: Song[] = [];
 const initialState: initialState = {
   songs: [],
-  isLoading: false,
+  isLoadingFetchSong: false,
+  isLoadingDeleteSong: false,
+  isLoadingCreateSong: false,
+  isLoadingUpdateSong: false,
 };
 
 const songSlice = createSlice({
@@ -24,32 +30,38 @@ const songSlice = createSlice({
   initialState,
   reducers: {
     fetchSongs: (state) => {
-      state.isLoading = true;
+      state.isLoadingFetchSong = true;
     },
     fetchSongsSuccess: (state, action) => {
       state.songs = action.payload;
-      state.isLoading = false;
+      state.isLoadingFetchSong = false;
     },
-    createSongs: (state) => {
-      state.isLoading = true;
+    createSong: (state) => {
+      state.isLoadingCreateSong = true;
     },
-    createSongsSuccess: (state, action) => {
+    createSongSuccess: (state, action) => {
       state.songs = [action.payload, ...state.songs];
-      state.isLoading = false;
+      state.isLoadingCreateSong = false;
     },
-    updateSongs: (state) => {
-      state.isLoading = true;
+    updateSong: (state) => {
+      state.isLoadingUpdateSong = true;
     },
-    updateSongsSuccess: (state, action) => {
-      // state.songs = [action.payload, ...state.songs]; ????????????????????//////////??????????????????????????????
-      state.isLoading = false;
+    updateSongSuccess: (state, action) => {
+      state.songs = state.songs.map((song) => {
+        if (song.id === action.payload.id) {
+          return action.payload;
+        }
+        return song;
+      });
+
+      state.isLoadingUpdateSong = false;
     },
     deleteSong: (state) => {
-      state.isLoading = true; // change to is own state isLoadingDeleteSong X - rename sssssssssss
+      state.isLoadingDeleteSong = true;
     },
     deleteSongSuccess: (state, action) => {
-      // state.songs = [action.payload, ...state.songs]; ????????????????????//////////??????????????????????????????
-      state.isLoading = false;
+      state.songs = state.songs.filter((song) => song.id !== action.payload);
+      state.isLoadingDeleteSong = false;
     },
   },
 });
@@ -57,10 +69,10 @@ const songSlice = createSlice({
 export const {
   fetchSongs,
   fetchSongsSuccess,
-  createSongs,
-  createSongsSuccess,
-  updateSongs,
-  updateSongsSuccess,
+  createSong,
+  createSongSuccess,
+  updateSong,
+  updateSongSuccess,
   deleteSong,
   deleteSongSuccess,
 } = songSlice.actions;

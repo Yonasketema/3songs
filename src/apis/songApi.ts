@@ -14,7 +14,7 @@ export const fetchSongsApi = (q: Query) => {
   });
 };
 
-export const createSongsApi = (data: Song) => {
+export const createSongApi = (data: Song) => {
   return fetcher({
     url: baseURL + "/songs",
     method: "POST",
@@ -22,14 +22,14 @@ export const createSongsApi = (data: Song) => {
   });
 };
 
-export const updateSongsApi = (data: Song) => {
+export const updateSongApi = (data: Song) => {
   return fetcher({
     url: baseURL + `/songs/${data.id}`,
     method: "PATCH",
     body: data,
   });
 };
-export const deleteSongsApi = (data: Song) => {
+export const deleteSongApi = (data: Song) => {
   return fetcher({
     url: baseURL + `/songs/${data.id}`,
     method: "DELETE",

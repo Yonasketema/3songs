@@ -1,10 +1,15 @@
 import { put, takeEvery, call } from "redux-saga/effects";
-import { createSongsSuccess, fetchSongsSuccess, fetchSongs } from "./songSlice";
 import {
-  createSongsApi,
-  deleteSongsApi,
+  fetchSongsSuccess,
+  createSongSuccess,
+  updateSongSuccess,
+  deleteSongSuccess,
+} from "./songSlice";
+import {
   fetchSongsApi,
-  updateSongsApi,
+  createSongApi,
+  deleteSongApi,
+  updateSongApi,
 } from "../../apis/songApi";
 import {
   fetchAlbumStatsApi,
@@ -19,7 +24,6 @@ import {
 } from "./songStatsSlice";
 
 function* fetchSongsHandler(action) {
-  console.log("AAAAA", action);
   try {
     const songsData = yield call(() => fetchSongsApi(action.payload));
 
@@ -28,6 +32,38 @@ function* fetchSongsHandler(action) {
     console.log(e);
   }
 }
+
+function* createSongsHandler(action) {
+  try {
+    const songsData = yield call(() => createSongApi(action.payload));
+
+    yield put(createSongSuccess(songsData));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* updateSongsHandler(action) {
+  try {
+    const songsData = yield call(() => updateSongApi(action.payload));
+
+    yield put(updateSongSuccess(songsData));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+function* deleteSongsHandler(action) {
+  try {
+    yield call(() => deleteSongApi(action.payload));
+
+    yield put(deleteSongSuccess(action.payload.id));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// -------
 
 function* fetchGenreStatsHandler() {
   try {
@@ -57,41 +93,10 @@ function* fetchArtistStatsHandler() {
     console.log(e);
   }
 }
-
-function* createSongsHandler(action) {
-  try {
-    const songsData = yield call(() => createSongsApi(action.payload));
-
-    yield put(createSongsSuccess(songsData));
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function* updateSongsHandler(action) {
-  try {
-    const response = yield call(() => updateSongsApi(action.payload));
-
-    yield put(fetchSongs());
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-function* deleteSongsHandler(action) {
-  try {
-    yield call(() => deleteSongsApi(action.payload));
-
-    yield put(fetchSongs());
-  } catch (e) {
-    console.log(e);
-  }
-}
-
 function* songSaga() {
   yield takeEvery("song/fetchSongs", fetchSongsHandler);
-  yield takeEvery("song/createSongs", createSongsHandler);
-  yield takeEvery("song/updateSongs", updateSongsHandler);
+  yield takeEvery("song/createSong", createSongsHandler);
+  yield takeEvery("song/updateSong", updateSongsHandler);
   yield takeEvery("song/deleteSong", deleteSongsHandler);
 
   yield takeEvery("songStats/fetchGenreStats", fetchGenreStatsHandler);

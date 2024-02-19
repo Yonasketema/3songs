@@ -4,7 +4,7 @@ import Input from "./Input";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
-import { createSongs, updateSongs } from "../state/song/songSlice";
+import { createSong, updateSong } from "../state/song/songSlice";
 import Button from "./Button";
 
 const FormRow = styled.div`
@@ -54,21 +54,23 @@ function CreateSongForm({ onClose, songData = {} }) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [song, setSong] = useState<Song>(
-    songData || {
-      title: "",
-      artist: "",
-      album: "",
-      genre: "",
-    }
+    isEditForm
+      ? songData
+      : {
+          title: "",
+          artist: "",
+          album: "",
+          genre: "",
+        }
   );
 
   function handleSubmit(event: FormDataEvent) {
     event.preventDefault();
 
     if (isEditForm) {
-      dispatch(updateSongs(song));
+      dispatch(updateSong(song));
     } else {
-      dispatch(createSongs(song));
+      dispatch(createSong(song));
     }
     onClose();
   }
