@@ -18,9 +18,10 @@ import {
   fetchGenreStatsSuccess,
 } from "./songStatsSlice";
 
-function* fetchSongsHandler() {
+function* fetchSongsHandler(action) {
+  console.log("AAAAA", action);
   try {
-    const songsData = yield call(() => fetchSongsApi());
+    const songsData = yield call(() => fetchSongsApi(action.payload));
 
     yield put(fetchSongsSuccess(songsData));
   } catch (e) {

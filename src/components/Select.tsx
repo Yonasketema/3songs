@@ -13,6 +13,7 @@ const StyledSelect = styled.select`
   font-weight: 500;
   box-shadow: var(--shadow-sm);
   width: 14rem;
+  text-transform: capitalize;
 `;
 
 function Select({ options, value, onChange, ...props }) {

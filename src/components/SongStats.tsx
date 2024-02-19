@@ -41,7 +41,7 @@ function SongStats() {
     <SongStatus>
       <StatusContainer>
         {data.map((d) => (
-          <StatusBox data={d} />
+          <StatusBox data={d} key={d.label} />
         ))}
       </StatusContainer>
       <Chart>

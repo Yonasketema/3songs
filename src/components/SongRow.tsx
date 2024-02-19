@@ -30,11 +30,8 @@ function SongRow({ song }) {
         <IconBox onClick={() => setIsOpenModal(true)}>
           <HiPencil />
         </IconBox>
-        <IconBox>
-          <HiTrash
-            color="var(--color-red-700)"
-            onClick={() => dispatch(deleteSong(song))}
-          />
+        <IconBox onClick={() => dispatch(deleteSong(song))}>
+          <HiTrash color="var(--color-red-700)" />
         </IconBox>
       </ButtonContainer>
 

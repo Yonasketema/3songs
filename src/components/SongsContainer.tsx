@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateSongForm from "./CreateSongForm";
 import Modal from "./Modal";
 import Row from "./Row";
@@ -9,25 +9,10 @@ import Select from "./Select";
 import Input from "./Input";
 import styled from "styled-components";
 import { CgSearch } from "react-icons/cg";
-
-const options = [
-  {
-    label: "Tizta",
-    value: "tizta",
-  },
-  {
-    label: "Hip-pop",
-    value: "Hip-pop",
-  },
-  {
-    label: "Ambasel",
-    value: "Ambasel",
-  },
-  {
-    label: "African Music",
-    value: "African Music",
-  },
-];
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../state/store";
+import { useDispatch } from "react-redux";
+import { fetchSongs } from "../state/song/songSlice";
 
 const SearchInput = styled.div`
   display: flex;
@@ -44,7 +29,26 @@ const SearchInput = styled.div`
 
 function SongsContainer() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectGenre, setSelectGenre] = useState("genre");
+  const [selectGenre, setSelectGenre] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+
+  const genreStats = useSelector(
+    (state: RootState) => state.SongStats.genreStats
+  );
+
+  const options = genreStats.map(({ genre }) => ({
+    label: genre,
+    value: genre,
+  }));
+
+  useEffect(() => {
+    if (searchText && searchText.length > 3) {
+      dispatch(fetchSongs({ genre: selectGenre, key: searchText }));
+    } else {
+      dispatch(fetchSongs({ genre: selectGenre, key: "" }));
+    }
+  }, [dispatch, selectGenre, searchText]);
 
   function handleChange(e) {
     setSelectGenre(e.target.value);
@@ -64,11 +68,17 @@ function SongsContainer() {
         <h1>All songs</h1>
         <Row>
           <SearchInput>
-            <Input type="text" placeholder="type artist name ..." />
+            <Input
+              type="text"
+              placeholder="search title ..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
             <CgSearch />
           </SearchInput>
+
           <Select
-            options={options}
+            options={[{ label: "genre", value: "" }, ...options]}
             onChange={handleChange}
             value={selectGenre}
           />
