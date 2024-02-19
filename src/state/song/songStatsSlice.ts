@@ -1,8 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface SongStat {
-  stats: string;
-  number: number;
+const songStats = {
+  album: 0,
+  genre: 0,
+  artist: 0,
+  songs: 0,
+};
+interface songStats {
+  album: number;
+  genre: number;
+  artist: number;
+  songs: number;
 }
 
 interface GenreStat {
@@ -16,7 +24,7 @@ interface allStat {
 }
 
 interface InitialState {
-  songStats: SongStat[];
+  songStats: songStats;
   genreStats: GenreStat[];
   albumStats: allStat[];
   artistStats: allStat[];
@@ -27,7 +35,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  songStats: [],
+  songStats,
   genreStats: [],
   albumStats: [],
   artistStats: [],

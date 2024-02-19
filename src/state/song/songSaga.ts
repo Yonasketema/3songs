@@ -15,12 +15,16 @@ import {
   fetchAlbumStatsApi,
   fetchArtistStatsApi,
   fetchGenreStatsApi,
+  fetchSongStatsApi,
 } from "../../apis/songStatsApi";
 
 import {
   fetchAlbumStatsSuccess,
   fetchArtistStatsSuccess,
   fetchGenreStatsSuccess,
+  fetchSongStatsSuccess,
+  fetchSongStats,
+  fetchGenreStats,
 } from "./songStatsSlice";
 
 function* fetchSongsHandler(action) {
@@ -38,6 +42,8 @@ function* createSongsHandler(action) {
     const songsData = yield call(() => createSongApi(action.payload));
 
     yield put(createSongSuccess(songsData));
+    yield put(fetchSongStats());
+    yield put(fetchGenreStats());
   } catch (e) {
     console.log(e);
   }
@@ -48,6 +54,8 @@ function* updateSongsHandler(action) {
     const songsData = yield call(() => updateSongApi(action.payload));
 
     yield put(updateSongSuccess(songsData));
+    yield put(fetchSongStats());
+    yield put(fetchGenreStats());
   } catch (e) {
     console.log(e);
   }
@@ -58,6 +66,8 @@ function* deleteSongsHandler(action) {
     yield call(() => deleteSongApi(action.payload));
 
     yield put(deleteSongSuccess(action.payload.id));
+    yield put(fetchSongStats());
+    yield put(fetchGenreStats());
   } catch (e) {
     console.log(e);
   }
@@ -65,6 +75,15 @@ function* deleteSongsHandler(action) {
 
 // -------
 
+function* fetchSongStatsHandler() {
+  try {
+    const songsData = yield call(() => fetchSongStatsApi());
+
+    yield put(fetchSongStatsSuccess(songsData[0]));
+  } catch (e) {
+    console.log(e);
+  }
+}
 function* fetchGenreStatsHandler() {
   try {
     const songsData = yield call(() => fetchGenreStatsApi());
@@ -99,6 +118,7 @@ function* songSaga() {
   yield takeEvery("song/updateSong", updateSongsHandler);
   yield takeEvery("song/deleteSong", deleteSongsHandler);
 
+  yield takeEvery("songStats/fetchSongStats", fetchSongStatsHandler);
   yield takeEvery("songStats/fetchGenreStats", fetchGenreStatsHandler);
   yield takeEvery("songStats/fetchAlbumStats", fetchAlbumStatsHandler);
   yield takeEvery("songStats/fetchArtistStats", fetchArtistStatsHandler);

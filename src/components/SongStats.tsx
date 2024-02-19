@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import StatusBox from "./StatusBox";
 import GenreChart from "./GenreChart";
+import { AppDispatch, RootState } from "../state/store";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchSongStats } from "../state/song/songStatsSlice";
+import { useEffect } from "react";
 
 const StatusContainer = styled.div`
   display: grid;
@@ -17,26 +22,24 @@ const SongStatus = styled.section`
   gap: 3.2rem;
 `;
 
-const data = [
-  {
-    label: "songs",
-    number: 14323,
-  },
-  {
-    label: "album",
-    number: 1232,
-  },
-  {
-    label: "genre",
-    number: 12,
-  },
-  {
-    label: "artist",
-    number: 52,
-  },
-];
+const labels = ["songs", "album", "genre", "artist"];
 
 function SongStats() {
+  const songStats = useSelector(
+    (state: RootState) => state.SongStats.songStats
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const data = labels.map((label) => ({
+    label,
+    number: songStats[label],
+  }));
+
+  useEffect(() => {
+    dispatch(fetchSongStats());
+  }, [dispatch]);
+
   return (
     <SongStatus>
       <StatusContainer>

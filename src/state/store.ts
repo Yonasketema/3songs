@@ -13,7 +13,7 @@ export const store = configureStore({
     SongStats: SongStatsReducer,
     themes: themeSlice,
   },
-  middleware: () => [saga],
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(saga),
 });
 
 saga.run(songSaga);
