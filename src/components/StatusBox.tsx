@@ -29,7 +29,16 @@ const IconBox = styled.div`
   opacity: 0.9;
 `;
 
-function StatusBox({ data }) {
+interface Data {
+  label: string;
+  number: number;
+}
+
+type StatusBoxProps = {
+  data: Data;
+};
+
+function StatusBox({ data }: StatusBoxProps) {
   return (
     <Box>
       <div>

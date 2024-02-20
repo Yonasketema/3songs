@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Form from "./Form";
 import Input from "./Input";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
-import { createSong, updateSong } from "../state/song/songSlice";
+import { Song, createSong, updateSong } from "../state/song/songSlice";
 import Button from "./Button";
 
 const FormRow = styled.div`
@@ -42,29 +42,30 @@ const Label = styled.label`
 //   font-size: 1.4rem;
 //   color: var(--color-red-700);
 // `;
-interface Song {
-  title: string;
-  artist: string;
-  album: string;
-  genre: string;
-}
 
-function CreateSongForm({ onClose, songData = {} }) {
-  const isEditForm = Boolean(songData.id);
+type CreateSongFormProps = {
+  onClose: () => void;
+  songData?: Song;
+};
+
+const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
+  const isEditForm = Boolean(songData);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [song, setSong] = useState<Song>(
-    isEditForm
-      ? songData
-      : {
-          title: "",
-          artist: "",
-          album: "",
-          genre: "",
-        }
-  );
+  const [song, setSong] = useState<Song>(() => {
+    if (songData) {
+      return songData;
+    } else {
+      return {
+        title: "",
+        artist: "",
+        album: "",
+        genre: "",
+      };
+    }
+  });
 
-  function handleSubmit(event: FormDataEvent) {
+  function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
 
     if (isEditForm) {
@@ -140,6 +141,6 @@ function CreateSongForm({ onClose, songData = {} }) {
       </FormRow>
     </Form>
   );
-}
+};
 
 export default CreateSongForm;

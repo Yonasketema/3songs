@@ -3,11 +3,7 @@ import styled from "styled-components";
 const StyledSelect = styled.select`
   font-size: 1.4rem;
   padding: 0.8rem 0.8rem;
-  border: 1px solid
-    ${(props) =>
-      props.type === "white"
-        ? "var(--color-grey-100)"
-        : "var(--color-grey-300)"};
+  border: 1px solid;
   border-radius: var(--border-radius-sm);
   background-color: var(--color-grey-0);
   font-weight: 500;
@@ -16,7 +12,18 @@ const StyledSelect = styled.select`
   text-transform: capitalize;
 `;
 
-function Select({ options, value, onChange, ...props }) {
+type Option = {
+  value: string;
+  label: string;
+};
+
+type SelectProps = {
+  options: Option[];
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+function Select({ options, value, onChange, ...props }: SelectProps) {
   return (
     <StyledSelect value={value} onChange={onChange} {...props}>
       {options.map((option) => (

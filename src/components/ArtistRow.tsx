@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
 import { Primary, Secondary, TableRow as baseRow } from "./Table";
+import { allStat } from "../state/song/songStatsSlice";
 
 const TableRow = styled(baseRow)`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
-function ArtistRow({ song }) {
+type ArtistRowProps = {
+  song: allStat;
+};
+
+const ArtistRow = ({ song }: ArtistRowProps) => {
   return (
     <TableRow>
       <Primary>{song.artist} </Primary>
@@ -14,6 +19,6 @@ function ArtistRow({ song }) {
       <Secondary>{song.songs}</Secondary>
     </TableRow>
   );
-}
+};
 
 export default ArtistRow;

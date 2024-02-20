@@ -1,3 +1,4 @@
+import React from "react";
 import { createPortal } from "react-dom";
 
 import styled from "styled-components";
@@ -51,7 +52,12 @@ const Button = styled.button`
   }
 `;
 
-function Modal({ children, onClose }) {
+type ModalProps = {
+  onClose: () => void;
+  children?: React.ReactNode;
+};
+
+const Modal = ({ children, onClose }: ModalProps) => {
   return createPortal(
     <Overlay>
       <StyledModal>
@@ -62,6 +68,6 @@ function Modal({ children, onClose }) {
     </Overlay>,
     document.body
   );
-}
+};
 
 export default Modal;

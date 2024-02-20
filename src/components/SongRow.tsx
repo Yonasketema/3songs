@@ -7,7 +7,7 @@ import IconBox from "./IconBox";
 import { Primary, Secondary, TableRow } from "./Table";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
-import { deleteSong } from "../state/song/songSlice";
+import { Song, deleteSong } from "../state/song/songSlice";
 
 const ButtonContainer = styled.div`
   margin-left: 41%;
@@ -15,7 +15,11 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-function SongRow({ song }) {
+type SongRowProps = {
+  song: Song;
+};
+
+function SongRow({ song }: SongRowProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();

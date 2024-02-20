@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface Song {
-  id: string;
+  id?: string;
   title: string;
   artist: string;
   album: string;

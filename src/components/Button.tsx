@@ -48,7 +48,12 @@ const variations = {
   `,
 };
 
-const Button = styled.button`
+type ButtonProps = {
+  variation: "primary" | "secondary" | "danger";
+  size: "small" | "medium" | "large";
+};
+
+const Button = styled.button<ButtonProps>`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
@@ -66,8 +71,8 @@ const Button = styled.button`
     color: var(--color-brand-100);
   }
 
-  ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
+  ${(p) => sizes[p.size]}
+  ${(p) => variations[p.variation]}
 `;
 
 export default Button;

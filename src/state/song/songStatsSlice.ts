@@ -6,18 +6,18 @@ const songStats = {
   artist: 0,
   songs: 0,
 };
-interface songStats {
+export interface songStats {
   album: number;
   genre: number;
   artist: number;
   songs: number;
 }
 
-interface GenreStat {
+export interface GenreStat {
   genre: string;
   number: number;
 }
-interface allStat {
+export interface allStat {
   songs: number;
   artist: string;
   album: string;

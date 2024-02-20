@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CreateSongForm from "./CreateSongForm";
 import Modal from "./Modal";
 import Row from "./Row";
@@ -20,7 +20,6 @@ const SearchInput = styled.div`
   & svg {
     width: 2.2rem;
     height: 2.2rem;
-
     color: var(--color-brand-500);
     position: relative;
     right: 30px;
@@ -50,7 +49,7 @@ function SongsContainer() {
     }
   }, [dispatch, selectGenre, searchText]);
 
-  function handleChange(e) {
+  function handleChangeSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectGenre(e.target.value);
   }
 
@@ -79,7 +78,7 @@ function SongsContainer() {
 
           <Select
             options={[{ label: "genre", value: "" }, ...options]}
-            onChange={handleChange}
+            onChange={handleChangeSelect}
             value={selectGenre}
           />
           <Button

@@ -33,7 +33,7 @@ function SongStats() {
 
   const data = labels.map((label) => ({
     label,
-    number: songStats[label],
+    number: songStats[label as keyof typeof songStats],
   }));
 
   useEffect(() => {
