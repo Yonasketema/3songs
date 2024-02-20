@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface Song {
-  id?: string;
+  id: string;
   title: string;
   artist: string;
   album: string;
@@ -29,7 +29,7 @@ const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
-    fetchSongs: (state) => {
+    fetchSongs: (state, action) => {
       state.isLoadingFetchSong = true;
     },
     fetchSongsSuccess: (state, action) => {

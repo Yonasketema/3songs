@@ -2,7 +2,7 @@ import fetcher from "../lib/fetcher";
 import { Song } from "../state/song/songSlice";
 import { baseURL } from "./api-client";
 
-type Query = {
+export type Query = {
   key?: string;
   genre?: string;
 };
@@ -29,9 +29,9 @@ export const updateSongApi = (data: Song) => {
     body: data,
   });
 };
-export const deleteSongApi = (data: Song) => {
+export const deleteSongApi = (id: string) => {
   return fetcher({
-    url: baseURL + `/songs/${data.id}`,
+    url: baseURL + `/songs/${id}`,
     method: "DELETE",
     json: false,
   });

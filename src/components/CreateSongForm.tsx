@@ -43,6 +43,13 @@ const Label = styled.label`
 //   color: var(--color-red-700);
 // `;
 
+type Song = {
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+};
+
 type CreateSongFormProps = {
   onClose: () => void;
   songData?: Song;

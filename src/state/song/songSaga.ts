@@ -4,12 +4,14 @@ import {
   createSongSuccess,
   updateSongSuccess,
   deleteSongSuccess,
+  Song,
 } from "./songSlice";
 import {
   fetchSongsApi,
   createSongApi,
   deleteSongApi,
   updateSongApi,
+  Query,
 } from "../../apis/songApi";
 import {
   fetchAlbumStatsApi,
@@ -25,11 +27,16 @@ import {
   fetchSongStatsSuccess,
   fetchSongStats,
   fetchGenreStats,
+  songStats,
+  GenreStat,
+  allStat,
 } from "./songStatsSlice";
 
-function* fetchSongsHandler(action) {
+import { PayloadAction } from "@reduxjs/toolkit";
+
+function* fetchSongsHandler(action: PayloadAction<Query>) {
   try {
-    const songsData = yield call(() => fetchSongsApi(action.payload));
+    const songsData: Song[] = yield call(() => fetchSongsApi(action.payload));
 
     yield put(fetchSongsSuccess(songsData));
   } catch (e) {
@@ -37,9 +44,9 @@ function* fetchSongsHandler(action) {
   }
 }
 
-function* createSongsHandler(action) {
+function* createSongsHandler(action: PayloadAction<Song>) {
   try {
-    const songsData = yield call(() => createSongApi(action.payload));
+    const songsData: Song = yield call(() => createSongApi(action.payload));
 
     yield put(createSongSuccess(songsData));
     yield put(fetchSongStats());
@@ -49,9 +56,9 @@ function* createSongsHandler(action) {
   }
 }
 
-function* updateSongsHandler(action) {
+function* updateSongsHandler(action: PayloadAction<Song>) {
   try {
-    const songsData = yield call(() => updateSongApi(action.payload));
+    const songsData: Song = yield call(() => updateSongApi(action.payload));
 
     yield put(updateSongSuccess(songsData));
     yield put(fetchSongStats());
@@ -61,9 +68,9 @@ function* updateSongsHandler(action) {
   }
 }
 
-function* deleteSongsHandler(action) {
+function* deleteSongsHandler(action: PayloadAction<Song>) {
   try {
-    yield call(() => deleteSongApi(action.payload));
+    yield call(() => deleteSongApi(action.payload.id));
 
     yield put(deleteSongSuccess(action.payload.id));
     yield put(fetchSongStats());
@@ -77,7 +84,7 @@ function* deleteSongsHandler(action) {
 
 function* fetchSongStatsHandler() {
   try {
-    const songsData = yield call(() => fetchSongStatsApi());
+    const songsData: songStats[] = yield call(() => fetchSongStatsApi());
 
     yield put(fetchSongStatsSuccess(songsData[0]));
   } catch (e) {
@@ -86,7 +93,7 @@ function* fetchSongStatsHandler() {
 }
 function* fetchGenreStatsHandler() {
   try {
-    const songsData = yield call(() => fetchGenreStatsApi());
+    const songsData: GenreStat = yield call(() => fetchGenreStatsApi());
 
     yield put(fetchGenreStatsSuccess(songsData));
   } catch (e) {
@@ -96,7 +103,7 @@ function* fetchGenreStatsHandler() {
 
 function* fetchAlbumStatsHandler() {
   try {
-    const songsData = yield call(() => fetchAlbumStatsApi());
+    const songsData: allStat = yield call(() => fetchAlbumStatsApi());
 
     yield put(fetchAlbumStatsSuccess(songsData));
   } catch (e) {
@@ -105,7 +112,7 @@ function* fetchAlbumStatsHandler() {
 }
 function* fetchArtistStatsHandler() {
   try {
-    const songsData = yield call(() => fetchArtistStatsApi());
+    const songsData: allStat = yield call(() => fetchArtistStatsApi());
 
     yield put(fetchArtistStatsSuccess(songsData));
   } catch (e) {
