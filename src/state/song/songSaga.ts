@@ -61,6 +61,7 @@ function* updateSongsHandler(action: PayloadAction<Song>) {
     const songsData: Song = yield call(() => updateSongApi(action.payload));
 
     yield put(updateSongSuccess(songsData));
+
     yield put(fetchSongStats());
     yield put(fetchGenreStats());
   } catch (e) {

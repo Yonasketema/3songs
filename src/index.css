@@ -103,6 +103,9 @@
   margin: 0;
 
   transition: background-color 0.3s, border 0.3s;
+
+  scrollbar-color: var(--color-brand-300) var(--color-grey-100);
+  scrollbar-width: thin;
 }
 
 html {

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Modal from "./Modal";
-import CreateSongForm from "./CreateSongForm";
+
+import { AppDispatch } from "../state/store";
 import { HiPencil, HiTrash } from "react-icons/hi";
-import IconBox from "./IconBox";
+import { Song, deleteSong } from "../state/song/songSlice";
 import { Primary, Secondary, TableRow } from "./Table";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../state/store";
-import { Song, deleteSong } from "../state/song/songSlice";
+import CreateSongForm from "./CreateSongForm";
+import IconBox from "./IconBox";
+import Modal from "./Modal";
 
 const ButtonContainer = styled.div`
   margin-left: 41%;

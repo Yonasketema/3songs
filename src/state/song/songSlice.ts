@@ -16,7 +16,6 @@ interface initialState {
   isLoadingUpdateSong: boolean;
 }
 
-// const initialState: Song[] = [];
 const initialState: initialState = {
   songs: [],
   isLoadingFetchSong: false,
@@ -30,20 +29,23 @@ const songSlice = createSlice({
   initialState,
   reducers: {
     fetchSongs: (state, action) => {
+      action;
       state.isLoadingFetchSong = true;
     },
     fetchSongsSuccess: (state, action) => {
       state.songs = action.payload;
       state.isLoadingFetchSong = false;
     },
-    createSong: (state) => {
+    createSong: (state, action) => {
+      action;
       state.isLoadingCreateSong = true;
     },
     createSongSuccess: (state, action) => {
       state.songs = [action.payload, ...state.songs];
       state.isLoadingCreateSong = false;
     },
-    updateSong: (state) => {
+    updateSong: (state, action) => {
+      action;
       state.isLoadingUpdateSong = true;
     },
     updateSongSuccess: (state, action) => {
@@ -56,7 +58,8 @@ const songSlice = createSlice({
 
       state.isLoadingUpdateSong = false;
     },
-    deleteSong: (state) => {
+    deleteSong: (state, action) => {
+      action;
       state.isLoadingDeleteSong = true;
     },
     deleteSongSuccess: (state, action) => {

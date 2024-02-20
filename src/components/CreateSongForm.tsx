@@ -4,7 +4,7 @@ import Input from "./Input";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../state/store";
-import { Song, createSong, updateSong } from "../state/song/songSlice";
+import { createSong, updateSong } from "../state/song/songSlice";
 import Button from "./Button";
 
 const FormRow = styled.div`

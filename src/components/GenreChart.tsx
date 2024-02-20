@@ -13,7 +13,6 @@ import { AppDispatch, RootState } from "../state/store";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchGenreStats } from "../state/song/songStatsSlice";
-import randomColor from "randomcolor";
 
 const ChartBox = styled.div`
   /* Box */
@@ -42,7 +41,10 @@ function GenreChart() {
     (state: RootState) => state.SongStats.genreStats
   );
 
-  const data = genreStats.map((data) => ({ ...data, color: randomColor() }));
+  const data = genreStats.map((data, i) => ({
+    ...data,
+    color: "#" + Math.floor(Math.random() * 16777215 - i * 2).toString(16),
+  }));
 
   const dispatch = useDispatch<AppDispatch>();
 

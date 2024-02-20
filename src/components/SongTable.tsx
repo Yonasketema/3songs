@@ -7,11 +7,11 @@ import { fetchSongs } from "../state/song/songSlice";
 import { Table, TableHeader } from "./Table";
 
 function SongTable() {
-  const { songs, isLoading } = useSelector((state: RootState) => state.song);
+  const { songs } = useSelector((state: RootState) => state.song);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchSongs());
+    dispatch(fetchSongs({}));
   }, [dispatch]);
 
   return (
