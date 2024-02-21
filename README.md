@@ -1,4 +1,7 @@
-# React + TypeScript + Vite
+#3songs
+## React + TypeScript + Vite
+
+![Screenshot 2024-02-21 at 16-51-11 Vite React TS](https://github.com/Yonasketema/3songs/assets/103140237/beeff588-e5f9-4060-802a-a0028dcc719c)
 
 ## Installation
  
