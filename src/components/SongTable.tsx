@@ -11,7 +11,7 @@ function SongTable() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchSongs({}));
+    dispatch(fetchSongs({ key: "", genre: "" }));
   }, [dispatch]);
 
   return (

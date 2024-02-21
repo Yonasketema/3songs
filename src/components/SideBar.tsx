@@ -18,12 +18,16 @@ const SideBarHeader = styled.div`
   margin-bottom: 1.3rem;
 `;
 
+const Title = styled.h3`
+  color: var(--color-grey-500);
+`;
+
 function SideBar() {
   const [next, setNext] = useState(false);
   return (
     <StyledSideBar>
       <SideBarHeader>
-        {next ? <h1>Album</h1> : <h1>Artist</h1>}
+        {next ? <Title>Albums</Title> : <Title>Artists</Title>}
         <Row>
           <ArrowButton
             onClick={() => setNext((state) => !state)}

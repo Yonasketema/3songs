@@ -43,7 +43,7 @@ function GenreChart() {
 
   const data = genreStats.map((data, i) => ({
     ...data,
-    color: "#" + Math.floor(Math.random() * 16777215 - i * 2).toString(16),
+    color: "#" + Math.floor(Math.random() * 16777215 - i).toString(16),
   }));
 
   const dispatch = useDispatch<AppDispatch>();
