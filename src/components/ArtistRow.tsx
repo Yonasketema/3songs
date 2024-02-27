@@ -15,8 +15,8 @@ const ArtistRow = ({ song }: ArtistRowProps) => {
   return (
     <TableRow>
       <Primary>{song.artist} </Primary>
-      <Secondary>{song.album}</Secondary>
       <Secondary>{song.songs}</Secondary>
+      <Secondary>{song.album}</Secondary>
     </TableRow>
   );
 };
