@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-import { AppDispatch } from "../state/store";
+import { AppDispatch, RootState } from "../state/store";
 import { HiPencil, HiTrash } from "react-icons/hi";
 import { Song, deleteSong } from "../state/song/songSlice";
 import { Primary, Secondary, TableRow } from "./Table";
@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import CreateSongForm from "./CreateSongForm";
 import IconBox from "./IconBox";
 import Modal from "./Modal";
+import { useSelector } from "react-redux";
+import { BiLoaderAlt } from "react-icons/bi";
 
 const ButtonContainer = styled.div`
   margin-left: 41%;
@@ -22,6 +24,9 @@ type SongRowProps = {
 
 function SongRow({ song }: SongRowProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const isLoadingDeleteSong = useSelector(
+    (state: RootState) => state.song.isLoadingDeleteSong
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -36,7 +41,11 @@ function SongRow({ song }: SongRowProps) {
           <HiPencil />
         </IconBox>
         <IconBox onClick={() => dispatch(deleteSong(song))}>
-          <HiTrash color="var(--color-red-700)" />
+          {isLoadingDeleteSong ? (
+            <BiLoaderAlt size={21} color="red" className="animate-spin" />
+          ) : (
+            <HiTrash color="var(--color-red-700)" />
+          )}
         </IconBox>
       </ButtonContainer>
 
