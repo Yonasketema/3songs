@@ -1,15 +1,18 @@
 import styled, { keyframes } from "styled-components";
 
+type SpinnerProps = {
+  width: string;
+};
+
 const rotate = keyframes`
   to {
     transform: rotate(1turn)
   }
 `;
 
-const Spinner = styled.div`
+const Spinner = styled.div<SpinnerProps>`
   margin: 4.8rem auto;
-
-  width: 6.4rem;
+  width: ${(p) => p.width};
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(farthest-side, var(--color-brand-600) 94%, #0000)

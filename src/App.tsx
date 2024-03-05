@@ -3,9 +3,9 @@ import SideBar from "./components/SideBar";
 import SongStats from "./components/SongStats";
 import SongsContainer from "./components/SongsContainer";
 import Header from "./components/Header";
+import FullPageSpinner from "./components/FullPageSpinner";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./state/store";
-import Spinner from "./components/Spinner";
 
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -44,9 +44,7 @@ function App() {
     <>
       <Header />
       {song.isLoadingFetchSong && !song.songs ? (
-        <div>
-          <Spinner />
-        </div>
+        <FullPageSpinner />
       ) : (
         <StyledMain>
           <INBOX>
