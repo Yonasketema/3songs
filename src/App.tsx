@@ -3,6 +3,13 @@ import SideBar from "./components/SideBar";
 import SongStats from "./components/SongStats";
 import SongsContainer from "./components/SongsContainer";
 import Header from "./components/Header";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./state/store";
+import Spinner from "./components/Spinner";
+
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchSongs } from "./state/song/songSlice";
 
 const StyledMain = styled.main`
   height: 88vh;
@@ -20,16 +27,35 @@ const INBOX = styled.div`
 `;
 
 function App() {
+  const song = useSelector((state: RootState) => state.song);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(
+      fetchSongs({
+        genre: song.selectedGenre,
+        key: (song.searchText.length >= 3 && song.searchText) || "",
+      })
+    );
+  }, [dispatch, song.selectedGenre, song.searchText]);
+
   return (
     <>
       <Header />
-      <StyledMain>
-        <INBOX>
-          <SongStats />
-          <SongsContainer />
-        </INBOX>
-        <SideBar />
-      </StyledMain>
+      {song.isLoadingFetchSong && !song.songs ? (
+        <div>
+          <Spinner />
+        </div>
+      ) : (
+        <StyledMain>
+          <INBOX>
+            <SongStats />
+            <SongsContainer />
+          </INBOX>
+          <SideBar />
+        </StyledMain>
+      )}
     </>
   );
 }

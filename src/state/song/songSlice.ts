@@ -10,6 +10,8 @@ export interface Song {
 
 interface initialState {
   songs: Song[];
+  selectedGenre: string;
+  searchText: string;
   isLoadingFetchSong: boolean;
   isLoadingDeleteSong: boolean;
   isLoadingCreateSong: boolean;
@@ -18,6 +20,8 @@ interface initialState {
 
 const initialState: initialState = {
   songs: [],
+  searchText: "",
+  selectedGenre: "",
   isLoadingFetchSong: false,
   isLoadingDeleteSong: false,
   isLoadingCreateSong: false,
@@ -66,6 +70,12 @@ const songSlice = createSlice({
       state.songs = state.songs.filter((song) => song.id !== action.payload);
       state.isLoadingDeleteSong = false;
     },
+    updateSelectedGenre: (state, action) => {
+      state.selectedGenre = action.payload;
+    },
+    updateSearchText: (state, action) => {
+      state.searchText = action.payload;
+    },
   },
 });
 
@@ -78,6 +88,8 @@ export const {
   updateSongSuccess,
   deleteSong,
   deleteSongSuccess,
+  updateSelectedGenre,
+  updateSearchText,
 } = songSlice.actions;
 
 export default songSlice.reducer;

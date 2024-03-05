@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchGenreStats } from "../state/song/songStatsSlice";
 
@@ -36,7 +36,7 @@ const ChartBox = styled.div`
   }
 `;
 
-function GenreChart() {
+const GenreChart = memo(() => {
   const genreStats = useSelector(
     (state: RootState) => state.SongStats.genreStats
   );
@@ -89,6 +89,6 @@ function GenreChart() {
       </ResponsiveContainer>
     </ChartBox>
   );
-}
+});
 
 export default GenreChart;

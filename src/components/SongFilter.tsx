@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
 import { useDispatch } from "react-redux";
-import { fetchSongs } from "../state/song/songSlice";
+import { updateSearchText, updateSelectedGenre } from "../state/song/songSlice";
 
 import { CgSearch } from "react-icons/cg";
 import { PiPlus } from "react-icons/pi";
@@ -50,12 +50,12 @@ const SongFilter = () => {
   }));
 
   useEffect(() => {
-    if (searchText && searchText.length > 3) {
-      dispatch(fetchSongs({ genre: selectGenre, key: searchText }));
-    } else {
-      dispatch(fetchSongs({ genre: selectGenre, key: "" }));
-    }
-  }, [dispatch, selectGenre, searchText]);
+    dispatch(updateSelectedGenre(selectGenre));
+  }, [selectGenre, dispatch]);
+
+  useEffect(() => {
+    dispatch(updateSearchText(searchText));
+  }, [searchText, dispatch]);
 
   function handleChangeSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     setSelectGenre(e.target.value);

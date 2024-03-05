@@ -1,18 +1,13 @@
 import SongRow from "./SongRow";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../state/store";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchSongs } from "../state/song/songSlice";
+import { RootState } from "../state/store";
 import { Table, TableHeader } from "./Table";
+import Spinner from "./Spinner";
 
 function SongTable() {
-  const { songs } = useSelector((state: RootState) => state.song);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(fetchSongs({ key: "", genre: "" }));
-  }, [dispatch]);
+  const { songs, isLoadingFetchSong } = useSelector(
+    (state: RootState) => state.song
+  );
 
   return (
     <Table role="table">
@@ -22,10 +17,11 @@ function SongTable() {
         <div>Album</div>
         <div>Genre</div>
       </TableHeader>
-
-      {songs.map((song) => (
-        <SongRow song={song} key={song.id} />
-      ))}
+      {isLoadingFetchSong ? (
+        <Spinner />
+      ) : (
+        songs.map((song) => <SongRow song={song} key={song.id} />)
+      )}
     </Table>
   );
 }
