@@ -3,9 +3,10 @@ import Form from "./Form";
 import Input from "./Input";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../state/store";
+import { AppDispatch, RootState } from "../state/store";
 import { createSong, updateSong } from "../state/song/songSlice";
 import Button from "./Button";
+import { useSelector } from "react-redux";
 
 const FormRow = styled.div`
   display: grid;
@@ -57,6 +58,8 @@ type CreateSongFormProps = {
 
 const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
   const isEditForm = Boolean(songData);
+  const state = useSelector((state: RootState) => state);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const [song, setSong] = useState<Song>(() => {
@@ -80,7 +83,9 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
     } else {
       dispatch(createSong(song));
     }
-    onClose();
+    if (!state.song.isLoadingCreateSong && !state.song.isLoadingUpdateSong) {
+      onClose();
+    }
   }
 
   return (
@@ -146,7 +151,16 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
         >
           Cancel
         </Button>
-        <Button variation="primary" type="submit" size="medium">
+        <Button
+          variation="primary"
+          type="submit"
+          size="medium"
+          disabled={
+            !isEditForm
+              ? state.song.isLoadingCreateSong
+              : state.song.isLoadingUpdateSong
+          }
+        >
           {!isEditForm ? "Add Song" : "Edit Song"}
         </Button>
       </FormRow>
