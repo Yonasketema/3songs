@@ -18,7 +18,7 @@ function SongTable() {
         <div>Genre</div>
       </TableHeader>
       {isLoadingFetchSong ? (
-        <Spinner />
+        <Spinner width="7.4rem" />
       ) : (
         songs.map((song) => <SongRow song={song} key={song.id} />)
       )}
