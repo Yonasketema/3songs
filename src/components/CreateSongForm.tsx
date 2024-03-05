@@ -91,6 +91,7 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
           type="text"
           value={song.title}
           id="title"
+          required
           onChange={(e) =>
             setSong((state) => ({ ...state, title: e.target.value }))
           }
@@ -103,6 +104,7 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
           type="text"
           id="artist"
           value={song.artist}
+          required
           onChange={(e) =>
             setSong((state) => ({ ...state, artist: e.target.value }))
           }
@@ -115,6 +117,7 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
           type="text"
           id="album"
           value={song.album}
+          required
           onChange={(e) =>
             setSong((state) => ({ ...state, album: e.target.value }))
           }
@@ -127,6 +130,7 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
           type="text"
           id="genre"
           value={song.genre}
+          required
           onChange={(e) =>
             setSong((state) => ({ ...state, genre: e.target.value }))
           }
@@ -142,7 +146,7 @@ const CreateSongForm = ({ onClose, songData }: CreateSongFormProps) => {
         >
           Cancel
         </Button>
-        <Button variation="primary" size="medium">
+        <Button variation="primary" type="submit" size="medium">
           {!isEditForm ? "Add Song" : "Edit Song"}
         </Button>
       </FormRow>
