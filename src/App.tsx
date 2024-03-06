@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <Header />
-      {song.isLoadingFetchSong && !song.songs ? (
+      {song.isLoadingFetchSong && song.songs.length === 0 ? (
         <FullPageSpinner />
       ) : (
         <StyledMain>

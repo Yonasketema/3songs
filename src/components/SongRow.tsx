@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { AppDispatch, RootState } from "../state/store";
@@ -24,11 +24,15 @@ type SongRowProps = {
 
 function SongRow({ song }: SongRowProps) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
   const isLoadingDeleteSong = useSelector(
     (state: RootState) => state.song.isLoadingDeleteSong
   );
 
-  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(deleteSong(selectedSong));
+  }, [selectedSong, dispatch]);
 
   return (
     <TableRow>
@@ -40,8 +44,8 @@ function SongRow({ song }: SongRowProps) {
         <IconBox onClick={() => setIsOpenModal(true)}>
           <HiPencil />
         </IconBox>
-        <IconBox onClick={() => dispatch(deleteSong(song))}>
-          {isLoadingDeleteSong ? (
+        <IconBox onClick={() => setSelectedSong(song)}>
+          {isLoadingDeleteSong && song.id === selectedSong?.id ? (
             <BiLoaderAlt size={21} color="red" className="animate-spin" />
           ) : (
             <HiTrash color="var(--color-red-700)" />
