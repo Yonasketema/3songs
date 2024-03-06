@@ -9,14 +9,13 @@ import { fetchArtistStats } from "../state/song/songStatsSlice";
 
 const Table = styled(baseTable)`
   grid-template-columns: 1fr 1fr 1fr;
-  height: 77%;
 `;
 const TableHeader = styled(baseHeader)`
   grid-template-columns: 1fr 1fr 1fr;
 `;
 
 const TableList = styled.div`
-  height: 100%;
+  height: 70vh;
   overflow-y: auto;
 `;
 
