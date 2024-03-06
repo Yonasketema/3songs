@@ -43,7 +43,7 @@ const GenreChart = memo(() => {
 
   const data = genreStats.map((data, i) => ({
     ...data,
-    color: "#" + Math.floor(Math.random() * 16777215 - i).toString(16),
+    color: "#" + Math.floor(167 * i * 2.198).toString(16),
   }));
 
   const dispatch = useDispatch<AppDispatch>();
