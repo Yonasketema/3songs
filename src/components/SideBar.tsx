@@ -4,6 +4,7 @@ import Row from "./Row";
 import AlbumTable from "./AlbumTable";
 import { useState } from "react";
 import ArtistTable from "./ArtistTable";
+import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 
 const StyledSideBar = styled.aside`
   grid-row: 1 / -1;
@@ -33,13 +34,13 @@ function SideBar() {
             onClick={() => setNext((state) => !state)}
             disabled={!next}
           >
-            &lt;
+            <BiLeftArrow />
           </ArrowButton>
           <ArrowButton
             onClick={() => setNext((state) => !state)}
             disabled={next}
           >
-            &gt;
+            <BiRightArrow />
           </ArrowButton>
         </Row>
       </SideBarHeader>
