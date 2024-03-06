@@ -43,7 +43,9 @@ function App() {
   return (
     <>
       <Header />
-      {song.isLoadingFetchSong && song.songs.length === 0 ? (
+      {song.isLoadingFetchSong &&
+      song.songs.length === 0 &&
+      !song.searchText ? (
         <FullPageSpinner />
       ) : (
         <StyledMain>
